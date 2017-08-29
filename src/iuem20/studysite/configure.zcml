@@ -1,0 +1,66 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="iuem20.studysite">
+
+  <i18n:registerTranslations directory="locales" />
+
+  <includeDependencies package="." />
+
+  <include package=".browser" />
+
+
+  <genericsetup:registerProfile
+      name="default"
+      title="iuem20.studysite"
+      directory="profiles/default"
+      description="Installs the iuem20.studysite add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      post_handler=".setuphandlers.post_install"
+      />
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="iuem20.studysite (uninstall)"
+      directory="profiles/uninstall"
+      description="Uninstalls the iuem20.studysite add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      post_handler=".setuphandlers.uninstall"
+      />
+
+    <browser:page
+      name="view-studysite"
+      for=".interfaces.IStudysite"
+      class=".studysite.StudySiteView"
+      template="studysiteview.pt"
+      permission="zope2.View"
+      />
+
+   <!-- Add form : name doit etre le nom du type de contenu -->
+   <adapter
+        name="iuem20.studysite"
+	    for="Products.CMFCore.interfaces.IFolderish
+	         zope.publisher.interfaces.browser.IDefaultBrowserLayer
+	         plone.dexterity.interfaces.IDexterityFTI"
+	    provides="zope.publisher.interfaces.browser.IBrowserPage"
+	    factory=".studysite.AddView"
+    />
+
+	<class class=".studysite.AddView">
+	    <require
+	        permission="cmf.AddPortalContent"
+	        interface="zope.publisher.interfaces.browser.IBrowserPage"
+	        />
+	</class>
+
+
+  <utility
+      factory=".setuphandlers.HiddenProfiles"
+      name="iuem20.studysite-hiddenprofiles" />
+
+</configure>

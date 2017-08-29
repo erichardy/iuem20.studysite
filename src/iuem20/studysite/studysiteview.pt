@@ -1,0 +1,97 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="iuem20.studysite">
+<body
+	tal:define="portal_state context/@@plone_portal_state;
+	            portal_url portal_state/portal_url">
+
+<metal:content-core fill-slot="main">
+  <metal:content-core define-macro="main">
+  <div tal:define="presentation python:context.getPresentation();
+                   imgAuthor python:context.getImgAuthor();
+                   missions python:context.getMissions();
+                   gallery python:view.getGalleryImages();
+                   feature_info_title string:${context/title};
+                   feature_info_text string:${context/description};
+                   feature_info_link string:"
+       class="iuem20-studysite">
+
+  <div id="bg-page-img" class="hidden-xs"
+         tal:define="image nocall:context/image;">
+      <img tal:attributes="src string:${context/absolute_url}/@@download/image/${image/filename}" />
+  </div>
+
+  <section>
+	<div class="row">
+  		<div id="page-title"
+  		     class="col-xs-10 col-xs-offset-1 col-sm-7 col-sm-offset-0 col-md-5 col-md-offset-1">
+  		     <div class="iuem20-title"
+					     tal:content="string:${context/title}">study site title
+			 </div>
+  		     <div class="iuem20-subtitle"
+					     tal:content="string:${context/description}">
+					     Project subtitle
+		     </div>
+  		</div>
+    </div>
+  </section>
+
+  <!---- auteur de la photo  --------->
+	<div class="img-author hidden-xs"
+	     tal:condition="python:imgAuthor"
+	     tal:content="string:${imgAuthor}">
+	</div>
+	<div class="img-no-author hidden-xs"
+	     tal:condition="python:not imgAuthor"
+	     >&nbsp;
+	</div>
+
+  <div class="bg-bright studysite-text">
+   <section id="viewlet-alt-languages" tal:content="structure provider:alt-languages" />
+   <div class="row">
+       <div tal:condition="presentation"
+            class="personnel-bio col-xs-12 col-md-10 col-md-offset-1">
+		  <span tal:content="structure string:${context/presentation/raw}">
+		    presentation
+		  </span>
+	  </div>
+	</div>
+	<section tal:condition="python:missions">
+	<div class="row bg-bright">
+         <!----------thumbnails des missions---------->
+         <h2 class="text-center">Missions associées / related missions</h2>
+         <div class="thumbnail-wrapper">
+	      <span  tal:omit-tag="" tal:repeat="mission missions">
+          	<div class="thumbnail-mission">
+          	 <a href=""
+          	    tal:attributes="href string:${mission/absolute_url}">
+          	    <div class="header">
+          	      <h4>${mission/title}</h4>
+          	    </div>
+          	    <div class="img-mission"
+          	         tal:define="image nocall:mission/thumbnail">
+          	      <img tal:attributes="src string:${mission/absolute_url}/@@download/thumbnail/${image/filename}" />
+          	    </div>
+          	 </a>
+          	</div>
+         </span>
+        </div>
+    </div>
+    </section>
+      <span tal:condition="gallery">
+        <metal:macro use-macro="context/iuem20_macros/macros/gallery-iuem20" />
+      </span>
+      <div>&nbsp;</div>
+ </div>
+
+</div>
+  </metal:content-core>
+</metal:content-core>
+
+</body>
+</html>
+  
