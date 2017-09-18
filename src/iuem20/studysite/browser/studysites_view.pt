@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plonetheme.iuem20">
+<body
+	tal:define="portal_state context/@@plone_portal_state;
+	            portal_url portal_state/portal_url">
+
+<metal:content-core fill-slot="main">
+  <metal:content-core define-macro="main">
+  <div tal:define="studysites python:view.getStudySitesObjs(effective=True)">
+
+ <div class="container">
+
+  <div class="pushtop super text-center pushbottom">
+        	${context/description}
+  </div>
+
+   <div class="thumbnail-wrapper" tal:condition="studysites">
+     <span  tal:omit-tag="" tal:repeat="studysite studysites">
+     
+     <div class="thumbnail-mission"
+          tal:define="image nocall:studysite/image">
+       <a href="" tal:attributes="href string:${studysite/absolute_url}">
+       <div class="header">
+       <h4 tal:content="string:${studysite/title}">studysite title</h4>
+       </div>
+	      <img tal:condition="image"
+	           tal:attributes="src string:${studysite/absolute_url}/@@download/image/${image/filename}"
+	           class="img-mission" />
+	      
+      </a>    
+     </div>
+     </span>
+   </div>
+
+ </div>
+</div>
+  </metal:content-core>
+</metal:content-core>
+
+</body>
+</html>
+  
