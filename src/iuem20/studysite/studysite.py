@@ -64,6 +64,7 @@ class studysite(Container):
         except Exception:
             return u''
 
+
 class AddForm(add.DefaultAddForm):
     portal_type = 'iuem20.studysite'
     ignoreContext = True
