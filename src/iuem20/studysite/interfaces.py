@@ -61,8 +61,14 @@ class IStudysite(model.Schema):
 
     model.fieldset('missions',
                    label=_(u'missions'),
-                   fields=['missions',
+                   fields=['missions_label',
+                           'missions',
                            ])
+    missions_label = schema.TextLine(
+        title=_(u'related missions label'),
+        default=u'Missions associées / related missions',
+        required=False,
+        )
     missions = RelationList(
         title=_(u'related missions'),
         value_type=RelationChoice(

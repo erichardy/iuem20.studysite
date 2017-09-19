@@ -13,6 +13,7 @@
   <metal:content-core define-macro="main">
   <div tal:define="presentation python:context.getPresentation();
                    imgAuthor python:context.getImgAuthor();
+                   missions_label python:context.getMissionsLabel();
                    missions python:context.getMissions();
                    gallery python:view.getGalleryImages();
                    feature_info_title string:${context/title};
@@ -63,7 +64,7 @@
 	<section tal:condition="python:missions">
 	<div class="row bg-bright">
          <!----------thumbnails des missions---------->
-         <h2 class="text-center">Missions associées / related missions</h2>
+         <h2 class="text-center" tal:content="string:${missions_label}">Missions associées / related missions</h2>
          <div class="thumbnail-wrapper">
 	      <span  tal:omit-tag="" tal:repeat="mission missions">
           	<div class="thumbnail-mission">

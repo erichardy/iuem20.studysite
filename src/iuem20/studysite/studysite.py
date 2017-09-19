@@ -58,6 +58,11 @@ class studysite(Container):
             # logger.info('excepppppp')
             return False
 
+    def getMissionsLabel(self):
+        try:
+            return self.missions_label
+        except Exception:
+            return u''
 
 class AddForm(add.DefaultAddForm):
     portal_type = 'iuem20.studysite'
