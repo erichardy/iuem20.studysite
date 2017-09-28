@@ -52,7 +52,11 @@
 	</div>
 
   <div class="bg-bright studysite-text">
-   <section id="viewlet-alt-languages" tal:content="structure provider:alt-languages" />
+    <div class="full-width row">
+        <div class="col-xs-12 col-md-10 col-md-offset-1">
+    		<section id="viewlet-alt-languages" tal:content="structure provider:alt-languages" />
+    	</div>
+    </div>
    <div class="row">
        <div tal:condition="presentation"
             class="personnel-bio col-xs-12 col-md-10 col-md-offset-1">
