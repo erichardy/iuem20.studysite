@@ -14,7 +14,7 @@
   <div tal:define="presentation python:context.getPresentation();
                    imgAuthor python:context.getImgAuthor();
                    missions_label python:context.getMissionsLabel();
-                   missions python:context.getMissions();
+                   missions python:view.getMissions();
                    gallery python:view.getGalleryImages();
                    feature_info_title string:${context/title};
                    feature_info_text string:${context/description};

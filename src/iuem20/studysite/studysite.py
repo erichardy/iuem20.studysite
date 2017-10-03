@@ -7,10 +7,11 @@ pour associer un projet a des missions et des portraits.
 
 from iuem20.studysite import _
 from iuem20.studysite.interfaces import IStudysite
-# from plone import api
+from plone import api
 from plone.dexterity.browser import add
 from plone.dexterity.content import Container
 from plonetheme.iuem20.utils import getGalleryImages as ggi
+from plonetheme.iuem20.utils import canView
 # from Products.CMFPlone.utils import safe_unicode
 from z3c.form import button
 from zope.interface import implementer
@@ -24,8 +25,14 @@ logger = logging.getLogger('iuem20 STUDYSITE')
 
 class StudySiteView(BrowserView):
     def getGalleryImages(self):
+        logger.info('getGalleryImages iuem20 STUDYSITE')
         return ggi(self.context)
 
+    def getMissions(self):
+        missions = [mission.to_object
+                    for mission in self.context.missions
+                    if canView(mission.to_object)]
+        return missions
 
 @implementer(IStudysite)
 class studysite(Container):
